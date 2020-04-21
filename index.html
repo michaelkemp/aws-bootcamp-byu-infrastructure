@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>BYU AWS Account Structure</title>
+<style>
+    html, body {
+        font-family: Arial, Helvetica, sans-serif;
+        box-sizing: border-box;
+        position: relative;
+        height: 1300px;
+    }
+    div {
+        border: 1px solid black;
+    }
+    #aws-region {
+        width: 805px;
+        height: 1150px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: white;
+        background-color: #f79b31;
+        border: 4px solid black;
+    }
+    .vpc {
+        position: absolute;
+        left: 10px;
+        width: 780px;
+        height: 510px;
+        color: black;
+        background-color: #fef3e6;
+        border: 3px solid black;
+    }
+    .subnets {
+        color: black;
+        background-color: #f9ab53;
+        border: 2px dotted black;
+    }
+    .subnet {
+        position: absolute;
+        width:300px;
+        height:100px;
+        color: black;
+        background-color: #dd7a08;
+        border: 2px solid black;
+        text-align: center;
+        line-height: 90px;
+    }
+    #public-a {
+        top: 30px;
+        left:35px;
+    }
+    #public-b {
+        top: 30px;
+        left:425px;
+    }
+    #private-a {
+        top: 40px;
+        left:35px;
+    }
+    #private-b {
+        top: 150px;
+        left:35px;
+    }
+    #data-a {
+        top: 40px;
+        left:35px;
+    }
+    #data-b {
+        top: 150px;
+        left:35px;
+    }
+    #vpn-vpc {
+        top: 60px;
+    }
+    #vpc {
+        top: 600px;
+    }
+    #public-subnets {
+        position: absolute;
+        top: 40px;
+        left: 8px;
+        width: 760px;
+        height: 150px;
+    }
+    #private-subnets {
+        position: absolute;
+        top: 208px;
+        left: 398px;
+        width: 370px;
+        height: 270px;
+    }
+    #data-subnets {
+        position: absolute;
+        top: 208px;
+        left: 8px;
+        width: 370px;
+        height: 270px;
+    }
+    .subnets.royal {
+        color: white;
+        background-color:#0062B8;
+    }
+    .subnet.navy {
+        color: white;
+        font-weight: bold;
+        background-color:#002E5D;
+    }
+    span {
+        display: block;
+        width:100%;
+        text-align: center;
+    }
+    #region-title {
+        font-size: 24px;
+        font-weight: bold;
+        padding-top:10px;
+    }
+    #vpc-title {
+        font-size: 20px;
+        font-weight: bold;
+        padding-top:7px;
+    }
+    #subnet-title {
+        font-size: 16px;
+        font-weight: bold;
+        padding-top:4px;
+    }
+
+    #internet {
+        position: absolute;
+        width: 320px;
+        height: 1150px;
+        top: 10px;
+        left: 850px;
+        background-color: #e0e0e0;
+        border: 4px solid black;
+        font-size: 50px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 80px;
+    }
+    
+    #byu {
+        position: absolute;
+        width: 300px;
+        height: 585px;
+        top: 10px;
+        left: 1205px;
+        background-color: #002E5D;
+        border: 4px solid black;
+        color: #fff;
+        font-size: 60px;
+        font-weight: bold;
+        text-align: center;
+        line-height: 100px;
+    }
+
+    .arrow {
+        position: absolute;
+        transform: scale(4);
+        z-index: 200;
+    }
+
+    #vpn-nat-arrow {
+        top: 300px;
+        left: 825px;
+    }
+
+    #nat-arrow {
+        top: 840px;
+        left: 825px;
+    }
+
+    #byu-arrow {
+        top: 290px;
+        left: 1175px;
+    }
+
+    #vpn-public-arrow {
+        top: 128px;
+        left: 809px;
+    }
+
+    #public-arrow {
+        top: 668px;
+        left: 809px;
+    }
+
+    .small-arrow-h {
+        z-index: 200;
+        position: absolute;
+        transform: scale(1.7,1);
+    }
+    .small-arrow-v {
+        z-index: 200;
+        position: absolute;
+        transform: scale(1,1.7);
+    }
+
+    #route-public-data-arrow {
+        top: 185px;
+        left: 22px;
+    }
+    #route-public-private-arrow {
+        top: 185px;
+        left: 416px;
+    }
+    #route-private-data-arrow {
+        top: 346px;
+        left: 374px;
+    }
+    #peering-arrow {
+        position: absolute;
+        z-index: 200;
+        transform: scale(3,2.8);
+        top: 592px;
+        left: 62px; 
+    }
+    #vpn-tunnel {
+        position: absolute;
+        z-index: 200;
+        top: 561px;
+        left: 105px;
+    }
+    .vpn-arrow-v {
+        position: absolute;
+        z-index: 200;
+        top: 532px;
+        transform: scale(2,2);
+    }
+    #vpn-data-arrow {
+        left: 385px;
+    }
+    #vpn-private-arrow {
+        left: 775px;
+    }
+    #vpn-byu-arrow {
+        left: 1352px;
+    }
+</style>
+</head>
+<body>
+
+<svg width="1400" height="25" id="vpn-tunnel">
+    <polygon points="1,1 1399,1 1399,24 1,24 1,1" style="fill:#0062B8;stroke:black;stroke-width:3;"/>
+    <text x="770" y="19" style="fill:white;font-size:20px;font-weight:bold;">Virtual Private Network (VPN)</text>
+</svg>
+
+<svg width="26" height="14" class="arrow" id="vpn-nat-arrow">
+    <polygon points="1,4 18,4 18,1 25,7 18,13 18,10 1,10 1,4" style="fill:red;stroke:black;stroke-width:1;"/>
+    <text x="5" y="9" style="fill:white;font-size:5px;font-weight:bold;">NAT</text>
+</svg>
+<svg width="26" height="14" class="arrow" id="nat-arrow">
+    <polygon points="1,4 18,4 18,1 25,7 18,13 18,10 1,10 1,4" style="fill:red;stroke:black;stroke-width:1;"/>
+    <text x="5" y="9" style="fill:white;font-size:5px;font-weight:bold;">NAT</text>
+</svg>
+<svg width="26" height="14" class="arrow" id="byu-arrow">
+    <polygon points="1,4 18,4 18,1 25,7 18,13 18,10 1,10 1,4" style="fill:red;stroke:black;stroke-width:1;" transform="rotate(180) translate(-26,-14)"/>
+    <text x="10" y="9" style="fill:white;font-size:5px;font-weight:bold;">NAT</text>
+</svg>
+<svg width="33" height="14" class="arrow" id="vpn-public-arrow">
+    <polygon points="1,7 8,1 8,4 25,4 25,1 32,7 25,13 25,10 8,10 8,13 1,7" style="fill:red;stroke:black;stroke-width:1;"/>
+</svg>
+<svg width="33" height="14" class="arrow" id="public-arrow">
+    <polygon points="1,7 8,1 8,4 25,4 25,1 32,7 25,13 25,10 8,10 8,13 1,7" style="fill:red;stroke:black;stroke-width:1;"/>
+</svg>
+<svg width="14" height="33" class="arrow-p" id="peering-arrow">
+    <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+</svg>
+
+<svg width="14" height="33" class="vpn-arrow-v" id="vpn-data-arrow">
+    <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+</svg>
+<svg width="14" height="33" class="vpn-arrow-v" id="vpn-private-arrow">
+    <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+</svg>
+<svg width="14" height="33" class="vpn-arrow-v" id="vpn-byu-arrow">
+    <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+</svg>
+
+
+
+<div id="aws-region">
+    <span class="title" id="region-title">AWS Region</span>
+    <div id="vpn-vpc" class="vpc">
+
+        <svg width="33" height="14" class="small-arrow-h" id="route-private-data-arrow">
+            <polygon points="1,7 8,1 8,4 25,4 25,1 32,7 25,13 25,10 8,10 8,13 1,7" style="fill:red;stroke:black;stroke-width:1;"/>
+        </svg>
+
+        <svg width="14" height="33" class="small-arrow-v" id="route-public-data-arrow">
+            <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+        </svg>
+
+        <svg width="14" height="33" class="small-arrow-v" id="route-public-private-arrow">
+            <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+        </svg>
+
+        <span class="title" id="vpc-title">VPN-VPC - 10.a.b.c</span>
+        <div class="subnets" id="public-subnets">
+            <span class="title" id="subnet-title">VPN Public Subnets</span>
+            <div class="subnet" id="public-a">vpn-public-a</div>
+            <div class="subnet" id="public-b">vpn-public-b</div>
+        </div>
+        <div class="subnets royal" id="private-subnets">
+            <span class="title" id="subnet-title">VPN Private Subnets</span>
+            <div class="subnet navy" id="private-a">vpn-private-a</div>
+            <div class="subnet navy" id="private-b">vpn-private-b</div>
+        </div>
+        <div class="subnets royal" id="data-subnets">
+            <span class="title" id="subnet-title">VPN Data Subnets</span>
+            <div class="subnet navy" id="data-a">vpn-data-a</div>
+            <div class="subnet navy" id="data-b">vpn-data-b</div>
+        </div>
+    </div>
+    <div id="vpc" class="vpc">
+
+        <svg width="33" height="14" class="small-arrow-h" id="route-private-data-arrow">
+            <polygon points="1,7 8,1 8,4 25,4 25,1 32,7 25,13 25,10 8,10 8,13 1,7" style="fill:red;stroke:black;stroke-width:1;"/>
+        </svg>
+
+        <svg width="14" height="33" class="small-arrow-v" id="route-public-data-arrow">
+            <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+        </svg>
+
+        <svg width="14" height="33" class="small-arrow-v" id="route-public-private-arrow">
+            <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+        </svg>
+
+        <span class="title" id="vpc-title">VPC - 172.x.y.z</span>
+        <div class="subnets" id="public-subnets">
+            <span class="title" id="subnet-title">Public Subnets</span>
+            <div class="subnet" id="public-a">public-a</div>
+            <div class="subnet" id="public-b">public-b</div>
+        </div>
+        <div class="subnets" id="private-subnets">
+            <span class="title" id="subnet-title">Private Subnets</span>
+            <div class="subnet" id="private-a">private-a</div>
+            <div class="subnet" id="private-b">private-b</div>
+        </div>
+        <div class="subnets" id="data-subnets">
+            <span class="title" id="subnet-title">Data Subnets</span>
+            <div class="subnet" id="data-a">data-a</div>
+            <div class="subnet" id="data-b">data-b</div>
+        </div>
+    </div>
+</div>
+
+<div id="internet">Internet</div>
+
+<div id="byu"><img src="byu.png"></div>
+
+</body>
+</html>

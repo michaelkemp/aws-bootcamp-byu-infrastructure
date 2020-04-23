@@ -1,355 +1,166 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>BYU AWS Account Structure</title>
-<style>
-    html, body {
-        font-family: Arial, Helvetica, sans-serif;
-        box-sizing: border-box;
-        position: relative;
-        height: 1300px;
-    }
-    div {
-        border: 1px solid black;
-    }
-    #aws-region {
-        width: 805px;
-        height: 1150px;
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        color: white;
-        background-color: #f79b31;
-        border: 4px solid black;
-    }
-    .vpc {
-        position: absolute;
-        left: 10px;
-        width: 780px;
-        height: 510px;
-        color: black;
-        background-color: #fef3e6;
-        border: 3px solid black;
-    }
-    .subnets {
-        color: black;
-        background-color: #f9ab53;
-        border: 2px dotted black;
-    }
-    .subnet {
-        position: absolute;
-        width:300px;
-        height:100px;
-        color: black;
-        background-color: #dd7a08;
-        border: 2px solid black;
-        text-align: center;
-        line-height: 90px;
-    }
-    #public-a {
-        top: 30px;
-        left:35px;
-    }
-    #public-b {
-        top: 30px;
-        left:425px;
-    }
-    #private-a {
-        top: 40px;
-        left:35px;
-    }
-    #private-b {
-        top: 150px;
-        left:35px;
-    }
-    #data-a {
-        top: 40px;
-        left:35px;
-    }
-    #data-b {
-        top: 150px;
-        left:35px;
-    }
-    #vpn-vpc {
-        top: 60px;
-    }
-    #vpc {
-        top: 600px;
-    }
-    #public-subnets {
-        position: absolute;
-        top: 40px;
-        left: 8px;
-        width: 760px;
-        height: 150px;
-    }
-    #private-subnets {
-        position: absolute;
-        top: 208px;
-        left: 398px;
-        width: 370px;
-        height: 270px;
-    }
-    #data-subnets {
-        position: absolute;
-        top: 208px;
-        left: 8px;
-        width: 370px;
-        height: 270px;
-    }
-    .subnets.royal {
-        color: white;
-        background-color:#0062B8;
-    }
-    .subnet.navy {
-        color: white;
-        font-weight: bold;
-        background-color:#002E5D;
-    }
-    span {
-        display: block;
-        width:100%;
-        text-align: center;
-    }
-    #region-title {
-        font-size: 24px;
-        font-weight: bold;
-        padding-top:10px;
-    }
-    #vpc-title {
-        font-size: 20px;
-        font-weight: bold;
-        padding-top:7px;
-    }
-    #subnet-title {
-        font-size: 16px;
-        font-weight: bold;
-        padding-top:4px;
-    }
+    <head>
+        <title>BYU AWS Account Structure</title>
+        <link rel="stylesheet" type="text/css" href="styles.css">
+    </head>
+    <body>
 
-    #internet {
-        position: absolute;
-        width: 320px;
-        height: 1150px;
-        top: 10px;
-        left: 850px;
-        background-color: #e0e0e0;
-        border: 4px solid black;
-        font-size: 50px;
-        font-weight: bold;
-        text-align: center;
-        line-height: 80px;
-    }
-    
-    #byu {
-        position: absolute;
-        width: 300px;
-        height: 585px;
-        top: 10px;
-        left: 1205px;
-        background-color: #002E5D;
-        border: 4px solid black;
-        color: #fff;
-        font-size: 60px;
-        font-weight: bold;
-        text-align: center;
-        line-height: 100px;
-    }
-
-    .arrow {
-        position: absolute;
-        transform: scale(4);
-        z-index: 200;
-    }
-
-    #vpn-nat-arrow {
-        top: 300px;
-        left: 825px;
-    }
-
-    #nat-arrow {
-        top: 840px;
-        left: 825px;
-    }
-
-    #byu-arrow {
-        top: 290px;
-        left: 1175px;
-    }
-
-    #vpn-public-arrow {
-        top: 128px;
-        left: 809px;
-    }
-
-    #public-arrow {
-        top: 668px;
-        left: 809px;
-    }
-
-    .small-arrow-h {
-        z-index: 200;
-        position: absolute;
-        transform: scale(1.7,1);
-    }
-    .small-arrow-v {
-        z-index: 200;
-        position: absolute;
-        transform: scale(1,1.7);
-    }
-
-    #route-public-data-arrow {
-        top: 185px;
-        left: 22px;
-    }
-    #route-public-private-arrow {
-        top: 185px;
-        left: 416px;
-    }
-    #route-private-data-arrow {
-        top: 346px;
-        left: 374px;
-    }
-    #peering-arrow {
-        position: absolute;
-        z-index: 200;
-        transform: scale(3,2.8);
-        top: 592px;
-        left: 62px; 
-    }
-    #vpn-tunnel {
-        position: absolute;
-        z-index: 200;
-        top: 561px;
-        left: 105px;
-    }
-    .vpn-arrow-v {
-        position: absolute;
-        z-index: 200;
-        top: 532px;
-        transform: scale(2,2);
-    }
-    #vpn-data-arrow {
-        left: 385px;
-    }
-    #vpn-private-arrow {
-        left: 775px;
-    }
-    #vpn-byu-arrow {
-        left: 1352px;
-    }
-</style>
-</head>
-<body>
-
-<svg width="1400" height="25" id="vpn-tunnel">
-    <polygon points="1,1 1399,1 1399,24 1,24 1,1" style="fill:#0062B8;stroke:black;stroke-width:3;"/>
-    <text x="770" y="19" style="fill:white;font-size:20px;font-weight:bold;">Virtual Private Network (VPN)</text>
-</svg>
-
-<svg width="26" height="14" class="arrow" id="vpn-nat-arrow">
-    <polygon points="1,4 18,4 18,1 25,7 18,13 18,10 1,10 1,4" style="fill:red;stroke:black;stroke-width:1;"/>
-    <text x="5" y="9" style="fill:white;font-size:5px;font-weight:bold;">NAT</text>
-</svg>
-<svg width="26" height="14" class="arrow" id="nat-arrow">
-    <polygon points="1,4 18,4 18,1 25,7 18,13 18,10 1,10 1,4" style="fill:red;stroke:black;stroke-width:1;"/>
-    <text x="5" y="9" style="fill:white;font-size:5px;font-weight:bold;">NAT</text>
-</svg>
-<svg width="26" height="14" class="arrow" id="byu-arrow">
-    <polygon points="1,4 18,4 18,1 25,7 18,13 18,10 1,10 1,4" style="fill:red;stroke:black;stroke-width:1;" transform="rotate(180) translate(-26,-14)"/>
-    <text x="10" y="9" style="fill:white;font-size:5px;font-weight:bold;">NAT</text>
-</svg>
-<svg width="33" height="14" class="arrow" id="vpn-public-arrow">
-    <polygon points="1,7 8,1 8,4 25,4 25,1 32,7 25,13 25,10 8,10 8,13 1,7" style="fill:red;stroke:black;stroke-width:1;"/>
-</svg>
-<svg width="33" height="14" class="arrow" id="public-arrow">
-    <polygon points="1,7 8,1 8,4 25,4 25,1 32,7 25,13 25,10 8,10 8,13 1,7" style="fill:red;stroke:black;stroke-width:1;"/>
-</svg>
-<svg width="14" height="33" class="arrow-p" id="peering-arrow">
-    <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
-</svg>
-
-<svg width="14" height="33" class="vpn-arrow-v" id="vpn-data-arrow">
-    <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
-</svg>
-<svg width="14" height="33" class="vpn-arrow-v" id="vpn-private-arrow">
-    <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
-</svg>
-<svg width="14" height="33" class="vpn-arrow-v" id="vpn-byu-arrow">
-    <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
-</svg>
-
-
-
-<div id="aws-region">
-    <span class="title" id="region-title">AWS Region</span>
-    <div id="vpn-vpc" class="vpc">
-
-        <svg width="33" height="14" class="small-arrow-h" id="route-private-data-arrow">
+        <svg width="1400" height="25" id="vpn-tunnel">
+            <polygon points="1,1 1399,1 1399,24 1,24 1,1" style="fill:#0062B8;stroke:black;stroke-width:3;"/>
+            <text x="770" y="19" style="fill:white;font-size:20px;font-weight:bold;">Virtual Private Network (VPN)</text>
+        </svg>
+        <svg width="26" height="14" class="arrow" id="vpn-nat-arrow">
+            <polygon points="1,4 18,4 18,1 25,7 18,13 18,10 1,10 1,4" style="fill:red;stroke:black;stroke-width:1;"/>
+            <text x="5" y="9" style="fill:white;font-size:5px;font-weight:bold;">NAT</text>
+        </svg>
+        <svg width="26" height="14" class="arrow" id="nat-arrow">
+            <polygon points="1,4 18,4 18,1 25,7 18,13 18,10 1,10 1,4" style="fill:red;stroke:black;stroke-width:1;"/>
+            <text x="5" y="9" style="fill:white;font-size:5px;font-weight:bold;">NAT</text>
+        </svg>
+        <svg width="26" height="14" class="arrow" id="byu-arrow">
+            <polygon points="1,4 18,4 18,1 25,7 18,13 18,10 1,10 1,4" style="fill:red;stroke:black;stroke-width:1;" transform="rotate(180) translate(-26,-14)"/>
+            <text x="10" y="9" style="fill:white;font-size:5px;font-weight:bold;">NAT</text>
+        </svg>
+        <svg width="33" height="14" class="arrow" id="vpn-public-arrow">
             <polygon points="1,7 8,1 8,4 25,4 25,1 32,7 25,13 25,10 8,10 8,13 1,7" style="fill:red;stroke:black;stroke-width:1;"/>
         </svg>
-
-        <svg width="14" height="33" class="small-arrow-v" id="route-public-data-arrow">
-            <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
-        </svg>
-
-        <svg width="14" height="33" class="small-arrow-v" id="route-public-private-arrow">
-            <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
-        </svg>
-
-        <span class="title" id="vpc-title">VPN-VPC - 10.a.b.c</span>
-        <div class="subnets" id="public-subnets">
-            <span class="title" id="subnet-title">VPN Public Subnets</span>
-            <div class="subnet" id="public-a">vpn-public-a</div>
-            <div class="subnet" id="public-b">vpn-public-b</div>
-        </div>
-        <div class="subnets royal" id="private-subnets">
-            <span class="title" id="subnet-title">VPN Private Subnets</span>
-            <div class="subnet navy" id="private-a">vpn-private-a</div>
-            <div class="subnet navy" id="private-b">vpn-private-b</div>
-        </div>
-        <div class="subnets royal" id="data-subnets">
-            <span class="title" id="subnet-title">VPN Data Subnets</span>
-            <div class="subnet navy" id="data-a">vpn-data-a</div>
-            <div class="subnet navy" id="data-b">vpn-data-b</div>
-        </div>
-    </div>
-    <div id="vpc" class="vpc">
-
-        <svg width="33" height="14" class="small-arrow-h" id="route-private-data-arrow">
+        <svg width="33" height="14" class="arrow" id="public-arrow">
             <polygon points="1,7 8,1 8,4 25,4 25,1 32,7 25,13 25,10 8,10 8,13 1,7" style="fill:red;stroke:black;stroke-width:1;"/>
         </svg>
-
-        <svg width="14" height="33" class="small-arrow-v" id="route-public-data-arrow">
+        <svg width="14" height="33" class="arrow-p" id="peering-arrow">
             <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
         </svg>
-
-        <svg width="14" height="33" class="small-arrow-v" id="route-public-private-arrow">
+        <svg width="14" height="33" class="vpn-arrow-v" id="vpn-data-arrow">
             <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
         </svg>
-
-        <span class="title" id="vpc-title">VPC - 172.x.y.z</span>
-        <div class="subnets" id="public-subnets">
-            <span class="title" id="subnet-title">Public Subnets</span>
-            <div class="subnet" id="public-a">public-a</div>
-            <div class="subnet" id="public-b">public-b</div>
+        <svg width="14" height="33" class="vpn-arrow-v" id="vpn-private-arrow">
+            <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+        </svg>
+        <svg width="14" height="33" class="vpn-arrow-v" id="vpn-byu-arrow">
+            <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+        </svg>
+        <div id="aws-region">
+            <span class="title" id="region-title">AWS Region</span>
+            <div id="vpn-vpc" class="vpc">
+                <svg width="33" height="14" class="small-arrow-h" id="route-private-data-arrow">
+                    <polygon points="1,7 8,1 8,4 25,4 25,1 32,7 25,13 25,10 8,10 8,13 1,7" style="fill:red;stroke:black;stroke-width:1;"/>
+                </svg>
+                <svg width="14" height="33" class="small-arrow-v" id="route-public-data-arrow">
+                    <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+                </svg>
+                <svg width="14" height="33" class="small-arrow-v" id="route-public-private-arrow">
+                    <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+                </svg>
+                <span class="title" id="vpc-title">VPN-VPC - 10.a.b.c</span>
+                <div class="subnets" id="public-subnets">
+                    <span class="title" id="subnet-title">VPN Public Subnets</span>
+                    <div class="subnet" id="public-a">vpn-public-a</div>
+                    <div class="subnet" id="public-b">vpn-public-b</div>
+                </div>
+                <div class="subnets royal" id="private-subnets">
+                    <span class="title" id="subnet-title">VPN Private Subnets</span>
+                    <div class="subnet navy" id="private-a">vpn-private-a</div>
+                    <div class="subnet navy" id="private-b">vpn-private-b</div>
+                </div>
+                <div class="subnets royal" id="data-subnets">
+                    <span class="title" id="subnet-title">VPN Data Subnets</span>
+                    <div class="subnet navy" id="data-a">vpn-data-a</div>
+                    <div class="subnet navy" id="data-b">vpn-data-b</div>
+                </div>
+            </div>
+            <div id="vpc" class="vpc">
+                <svg width="33" height="14" class="small-arrow-h" id="route-private-data-arrow">
+                    <polygon points="1,7 8,1 8,4 25,4 25,1 32,7 25,13 25,10 8,10 8,13 1,7" style="fill:red;stroke:black;stroke-width:1;"/>
+                </svg>
+                <svg width="14" height="33" class="small-arrow-v" id="route-public-data-arrow">
+                    <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+                </svg>
+                <svg width="14" height="33" class="small-arrow-v" id="route-public-private-arrow">
+                    <polygon points="7,1 1,8 4,8 4,25 1,25 7,32 13,25 10,25 10,8 13,8 7,1" style="fill:red;stroke:black;stroke-width:1;"/>
+                </svg>
+                <span class="title" id="vpc-title">VPC - 172.x.y.z</span>
+                <div class="subnets" id="public-subnets">
+                    <span class="title" id="subnet-title">Public Subnets</span>
+                    <div class="subnet" id="public-a">public-a</div>
+                    <div class="subnet" id="public-b">public-b</div>
+                </div>
+                <div class="subnets" id="private-subnets">
+                    <span class="title" id="subnet-title">Private Subnets</span>
+                    <div class="subnet" id="private-a">private-a</div>
+                    <div class="subnet" id="private-b">private-b</div>
+                </div>
+                <div class="subnets" id="data-subnets">
+                    <span class="title" id="subnet-title">Data Subnets</span>
+                    <div class="subnet" id="data-a">data-a</div>
+                    <div class="subnet" id="data-b">data-b</div>
+                </div>
+            </div>
         </div>
-        <div class="subnets" id="private-subnets">
-            <span class="title" id="subnet-title">Private Subnets</span>
-            <div class="subnet" id="private-a">private-a</div>
-            <div class="subnet" id="private-b">private-b</div>
+        <div id="internet">Internet</div>
+        <div id="byu"><img src="byu.png"></div>
+        <div id="byu-infrastructure">
+            <h1>BYU AWS Infrastructure</h1>
+            <p>
+                Our aim is to create <em>small</em> accounts which contain one application or a small number of interrelated applications. 
+                This enables you to give account access only to those involved in creating/maintaining the application(s).
+            </p>
+            <p>
+                We use Single Sign On (SSO) to administer access to individual accounts. Account access is managed via <a href="https://gro.byu.edu/" target="_blank">GRO</a>. 
+                When you request an account, a GRO group will be created to allow you to control user access to the account. Users sign on with their NetId/Password. 
+                Duo multifactor authentication is required.<br>
+                <a href="https://awslogin.byu.edu/" target="_blank">https://awslogin.byu.edu/</a>
+            </p>
+            <p>
+                AWS has infrastructure in many <em>regions</em> around the world. At BYU we generally use the <strong>Oregon Region</strong> and the <strong>Virginia Region</strong>.
+                Each <em>region</em> has multiple geographically isolated data centers referred to as Availability Zones. Each of our subnet types is divided across 2 Availability Zones
+                to enable the creation of resilient applications.<br>
+                BYU accounts are connected to four Virtual Private Clouds (<strong>VPC</strong>) or Virtual Data Centers. 
+                    <ul>
+                        <li>vpn-oregon</li>
+                        <li>vpn-virginia</li>
+                        <li>oregon</li>
+                        <li>virginia</li>
+                    </ul>
+                VPCs prefixed<sup>&dagger;</sup> with <strong>vpn</strong> are connected via <em>Virtual Private Network</em> to BYU. Subnets in AWS which are routed over the VPN operate like
+                an extension of BYU's network.<br>
+                <pre><sup>&dagger;</sup> To increase security, only <em>data</em> and <em>private</em> subnets are routed to BYU via the VPN.</pre>
+                As there are a limited number of VPN routable IP addresses - spread across production and development accounts for both OIT and BYU Departments - it is important
+                to conserve them when possible.<br>
+                <b>If your AWS infrastructure does not need direct access to campus in order to function, please use the non-VPN VPC.</b>
+            </p>
+            <p><h3>Public Subnets</h3>
+                Public Subnets have a direct connection to the internet. Infrastructure in these subnets can be accessed directly from the internet.<br>
+                Public subnets should contain load balancers and bastion servers. Load Balancers are managed by AWS and can pass internet requests to your 
+                infrastructure in private subnets. Bastion servers enable specific users/ports access to infrastructure in more secure (data and private) subnets.
+            </p>
+            <p><h3>Private Subnets</h3>
+                Private Subnets have NAT (Network Address Translation) access to the internet. They can access the internet for updates/downloads but are not 
+                directly accessible from the internet.<br>
+                Most of your infrastructure should be placed in these subnets.
+            </p>
+            <p><h3>Data Subnets</h3>
+                Data Subnets have no access to the internet. As the name suggests, they are specifically designed to contain AWS managed databases which do not need 
+                the internet to access updates. In non-VPN data subnets, a bastion server will be needed to access infrastructure during setup. 
+            </p>
+            <h2>FYI</h2>
+            <p><h3>Security Groups</h3>
+                Infrastructure types in AWS like Database (RDS) and Virtual Machines (EC2) are firewalled. Permitting access is achieved via security groups.
+                A security group is a list of rules for who and what can access the infrastructure.<br>
+                When creating an EC2 instance, the default security group allows SSH (secure shell) access from 0.0.0.0/0 - this is enables access from anywhere in the world, 
+                which is a security concern. SSH and RDP (remote desktop protocol) with access to the world will be automatically remediated by our security tool.<br>
+                When creating security groups, always consider <em>least privilege</em>. 
+            </p>
+            <p><h3>HTTPS SSL Certificates</h3>
+                When accounts are set up, we automatically create a DNS record for <em>accountname.amazon.byu.edu</em>. We also create a certificate for use with this domain
+                and any subdomains in both Oregon and Virginia.
+            </p>
+            <p><h3>Training Account</h3>
+                We have attempted to give as much access as possible to the <em>PowerUser Role</em>. The main limitation is the requirement to add a Permissions Boundary when attaching
+                a policy to a role.<br>
+                On occasion, you may want to test something with the <em>Admin Role</em>. We provide the byu-org-trn account for this purpose. If at anytime you need access
+                to this account, you can visit <a href="http://go.byu.edu/AWSTrainingAccountRequest" target="_blank">http://go.byu.edu/AWSTrainingAccountRequest</a>. 
+            </p>
         </div>
-        <div class="subnets" id="data-subnets">
-            <span class="title" id="subnet-title">Data Subnets</span>
-            <div class="subnet" id="data-a">data-a</div>
-            <div class="subnet" id="data-b">data-b</div>
-        </div>
-    </div>
-</div>
-
-<div id="internet">Internet</div>
-
-<div id="byu"><img src="byu.png"></div>
-
-</body>
+    </body>
 </html>

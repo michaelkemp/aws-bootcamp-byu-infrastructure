@@ -107,8 +107,8 @@
             </p>
             <p>
                 We use Single Sign On (SSO) to administer access to individual accounts. Account access is managed via <a href="https://gro.byu.edu/" target="_blank">GRO</a>. 
-                When you request an account, a GRO group will be created to allow you to control user access to the account. Users sign on with their NetId/Password. 
-                Duo multifactor authentication is required.<br>
+                When you request an account, a GRO group will be also created to allow you to control access to the account. Users sign in with their NetId/Password. 
+                Duo multifactor authentication (MFA) is required.<br>
                 <a href="https://awslogin.byu.edu/" target="_blank">https://awslogin.byu.edu/</a>
             </p>
             <p>
@@ -140,26 +140,38 @@
                 Most of your infrastructure should be placed in these subnets.
             </p>
             <p><h3>Data Subnets</h3>
-                Data Subnets have no access to the internet. As the name suggests, they are specifically designed to contain AWS managed databases which do not need 
+                Data Subnets have no access to the internet. They are specifically designed to contain AWS managed databases which do not need 
                 the internet to access updates. In non-VPN data subnets, a bastion server will be needed to access infrastructure during setup. 
             </p>
             <h2>FYI</h2>
+            <p><h3>Savings</h3>
+                When an account is requested, we create both a <em>production</em> and a matching <em>development</em> account. You are responsible for the cost 
+                of infrastructure you create in both accounts.<br>
+                BYU purchases <em>savings plans</em> and <em>reserved instances</em>, and receives bulk discounts. These savings are spread across all accounts 
+                under the BYU organization.
+            </p>
+
             <p><h3>Security Groups</h3>
-                Infrastructure types in AWS like Database (RDS) and Virtual Machines (EC2) are firewalled. Permitting access is achieved via security groups.
-                A security group is a list of rules for who and what can access the infrastructure.<br>
-                When creating an EC2 instance, the default security group allows SSH (secure shell) access from 0.0.0.0/0 - this is enables access from anywhere in the world, 
+                VPC infrastructure like Databases (RDS) and Virtual Machines (EC2) are firewalled. Allowing access to this infrastructure is achieved via security groups.
+                A security group is a list of rules for <em>who</em> and <em>what</em> can access the infrastructure.<br>
+                <strong>Gotcha: </strong> When creating a Linux EC2 instance, the default security group allows SSH (secure shell) access from 0.0.0.0/0 - this is enables access from anywhere in the world, 
                 which is a security concern. SSH and RDP (remote desktop protocol) with access to the world will be automatically remediated by our security tool.<br>
                 When creating security groups, always consider <em>least privilege</em>. 
             </p>
             <p><h3>HTTPS SSL Certificates</h3>
-                When accounts are set up, we automatically create a DNS record for <em>accountname.amazon.byu.edu</em>. We also create a certificate for use with this domain
-                and any subdomains in both Oregon and Virginia.
+                When accounts are set up, we automatically create a DNS record for the domain <em>accountname.amazon.byu.edu</em>. We also create SSL certificates in Oregon and Virginia 
+                for use with this domain and any of its subdomains.
             </p>
             <p><h3>Training Account</h3>
                 We have attempted to give as much access as possible to the <em>PowerUser Role</em>. The main limitation is the requirement to add a Permissions Boundary when attaching
                 a policy to a role.<br>
                 On occasion, you may want to test something with the <em>Admin Role</em>. We provide the byu-org-trn account for this purpose. If at anytime you need access
                 to this account, you can visit <a href="http://go.byu.edu/AWSTrainingAccountRequest" target="_blank">http://go.byu.edu/AWSTrainingAccountRequest</a>. 
+            </p>
+            <p><h3>Infrastructure As Code (IAC)</h3>
+                We recommend when creating infrastructure in AWS that you use a tool like <em>AWS CloudFormation</em> or <em>Terraform by Hashicorp</em>. IAC simplifies the creation
+                of matching infrastructure between development and production accounts. Code changes can be tracked in Git.<br>
+                The Office of IT uses Terraform, and is creating modules to simplify deployment of standard infrastructure without the need to reinvent the wheel.   
             </p>
         </div>
     </body>

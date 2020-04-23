@@ -107,7 +107,7 @@
             </p>
             <p>
                 We use Single Sign On (SSO) to administer access to individual accounts. Account access is managed via <a href="https://gro.byu.edu/" target="_blank">GRO</a>. 
-                When you request an account, a GRO group will be also created to allow you to control access to the account. Users sign in with their NetId/Password. 
+                When you request an account, a GRO group will also be created to allow you to control access to the account. Users sign in with their NetId/Password. 
                 Duo multifactor authentication (MFA) is required.<br>
                 <a href="https://awslogin.byu.edu/" target="_blank">https://awslogin.byu.edu/</a>
             </p>
@@ -154,7 +154,7 @@
             <p><h3>Security Groups</h3>
                 VPC infrastructure like Databases (RDS) and Virtual Machines (EC2) are firewalled. Allowing access to this infrastructure is achieved via security groups.
                 A security group is a list of rules for <em>who</em> and <em>what</em> can access the infrastructure.<br>
-                <strong>Gotcha: </strong> When creating a Linux EC2 instance, the default security group allows SSH (secure shell) access from 0.0.0.0/0 - this is enables access from anywhere in the world, 
+                <strong>Gotcha: </strong> When creating a Linux EC2 instance, the default security group allows SSH (secure shell) access from 0.0.0.0/0 - this enables access from anywhere in the world, 
                 which is a security concern. SSH and RDP (remote desktop protocol) with access to the world will be automatically remediated by our security tool.<br>
                 When creating security groups, always consider <em>least privilege</em>. 
             </p>

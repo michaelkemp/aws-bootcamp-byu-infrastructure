@@ -129,6 +129,14 @@
                 to conserve them when possible.<br>
                 <b>If your AWS infrastructure does not need direct access to campus in order to function, please use the non-VPN VPC.</b>
             </p>
+            <p><h3>Data Flow</h3>
+                In the above diagram, red arrows indicate route entries or infrastructure that facilitate the flow of data. All subnets within a VPC have route entries that enable infrastructure to
+                communicate across subnet boundaries.<br>
+                A peering connection between the VPN and non-VPN VPC allow for communication between these VPCs.<br>
+                Routing in AWS is not transitive; without adding specific infrastructure to route traffic, an EC2 instance in the non-VPN VPC could not make a request down the VPN, even though
+                the VPCs are peered.
+
+            </p>
             <p><h3>Public Subnets</h3>
                 Public Subnets have a direct connection to the internet. Infrastructure in these subnets can be accessed directly from the internet.<br>
                 Public subnets should contain load balancers and bastion servers. Load Balancers are managed by AWS and can pass internet requests to your 
